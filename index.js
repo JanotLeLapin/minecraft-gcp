@@ -1,7 +1,7 @@
 import { Client } from "discord.js"
 import InstancesClient from "@google-cloud/compute"
 
-import { statusPing } from "./status.js";
+import { statusPing, displayComponent } from "./status.js";
 
 const client = new Client({
   intents: ["Guilds", "GuildMessages", "MessageContent"],
@@ -19,7 +19,12 @@ client.on("messageCreate", async msg => {
       zone: "europe-west1-b"
     });
   } else if (msg.content === "server info") {
-    statusPing("34.77.37.184", 25565, 765, status => msg.reply(status.description.text));
+    statusPing(
+      "34.77.37.184",
+      25565,
+      765,
+      status => msg.reply(displayComponent(status.description))
+    );
   }
 });
 

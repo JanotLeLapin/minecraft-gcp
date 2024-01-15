@@ -3,7 +3,7 @@ import net from "node:net"
 /**
   * @typedef {{name: string, protocol: number}} Version
   * @typedef {{max: number, online: number}} Players
-  * @typedef {{text: string}} Description
+  * @typedef {{text: string, extra?: TextComponent[]}} TextComponent
   * @typedef {{version: Version, players: Players, description: Description}} Status
   */
 
@@ -53,3 +53,9 @@ export const statusPing = (ip, port, protocol, callback) => {
     callback(JSON.parse(trimmed.toString()));
   });
 }
+
+/**
+  * @param comp {TextComponent}
+  * @returns {string}
+  */
+export const displayComponent = (comp) => comp.text || comp.extra.map(c => c.text).join("\n")
