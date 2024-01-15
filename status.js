@@ -95,6 +95,7 @@ export const statusPing = async (ip, port, protocol) => {
   let pos = 0;
   while (buffer[pos] != 0x7B) { pos++ };
   const trimmed = buffer.subarray(pos);
+  console.log(JSON.parse(trimmed.toString()));
   return JSON.parse(trimmed.toString());
 }
 
@@ -102,4 +103,4 @@ export const statusPing = async (ip, port, protocol) => {
   * @param comp {TextComponent}
   * @returns {string}
   */
-export const displayComponent = (comp) => comp.text || comp.extra.map(c => c.text).join("\n")
+export const displayComponent = (comp) => comp.text || comp.extra.map(c => c.text.trim()).join("\n")

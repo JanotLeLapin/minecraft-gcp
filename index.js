@@ -21,12 +21,10 @@ client.on("messageCreate", async msg => {
   } else if (msg.content === "server info") {
     let message;
     try {
-      message = displayComponent(statusPing(
-        "34.77.37.184",
-        25565,
-        765,
-      ));
+      const response = await statusPing("34.77.37.184", 25565, 765);
+      message = displayComponent(response.description);
     } catch (e) {
+      console.error(e);
       message = "Connexion au serveur impossible.";
     }
     msg.reply(message);
