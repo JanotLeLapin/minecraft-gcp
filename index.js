@@ -1,21 +1,17 @@
 import { Client } from "discord.js"
-import Compute from "@google-cloud/compute"
+import Functions from "@google-cloud/functions"
 
 const client = new Client({
   intents: ["Guilds", "GuildMessages", "MessageContent"],
 });
 
-const compute = new Compute.v1.InstancesClient();
+const functions = new Functions.v1.CloudFunctionsServiceClient();
 
 client.on("ready", () => console.log("Ready"));
 client.on("messageCreate", async msg => {
   if (msg.content === "server start") {
     msg.reply("Démarrage du serveur...");
-    await compute.start({
-      project: "khadija-411118",
-      instance: "minecraft",
-      zone: "europe-west1-b",
-    });
+    await functions.callFunction({ name: "start-instance" });
   }
 });
 
