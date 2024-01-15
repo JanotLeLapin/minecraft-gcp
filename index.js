@@ -19,12 +19,17 @@ client.on("messageCreate", async msg => {
       zone: "europe-west1-b"
     });
   } else if (msg.content === "server info") {
-    statusPing(
-      "34.77.37.184",
-      25565,
-      765,
-      status => msg.reply(displayComponent(status.description))
-    );
+    let message;
+    try {
+      message = displayComponent(statusPing(
+        "34.77.37.184",
+        25565,
+        765,
+      ));
+    } catch (e) {
+      message = "Connexion au serveur impossible.";
+    }
+    msg.reply(message);
   }
 });
 
