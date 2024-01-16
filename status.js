@@ -103,4 +103,4 @@ export const statusPing = async (ip, port, protocol) => {
   * @param comp {TextComponent}
   * @returns {string}
   */
-export const displayComponent = (comp) => comp.text || comp.extra.map(c => c.text.trim()).join("\n")
+export const displayComponent = (comp) => comp.text || comp.extra.map(c => c.text).join("\n")
